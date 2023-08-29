@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     studentList: [],
-    editStudent: {}
+    editStd: undefined,
+    // editedStd: undefined
 }
 const BTFormSlice = createSlice({
     name: 'BTForm',
@@ -14,8 +15,16 @@ const BTFormSlice = createSlice({
             state.studentList = state.studentList.filter(student => student.id !== action.payload)
         },
         editStudent: (state, action) => {
-            state.editStudent = action.payload
+            state.editStd = action.payload
+        },
+        saveStudent: (state, action) => {
+            state.studentList = state.studentList.map(student => {
+                if (student.id === action.payload.id) {
+                    return action.payload
+                }
+            })
         }
+
 
     },
 

@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BTFormActions } from '../redux/slice'
 
-const FormTable = () => {
-  const { studentList } = useSelector(state => state.BTForm)
+const FormTable = ({ inputValue, setInputValue }) => {
   const dispatch = useDispatch()
   const myForm = document.querySelector('form')
+  const { studentList } = useSelector(state => state.BTForm)
 
   return (
     <div className='container mt-3 '>
       <table className="table">
         <thead>
-          <tr>
+          <tr className='table-dark'>
             <th>Mã SV</th>
             <th>Họ và tên</th>
             <th>Số điện thoại</th>
@@ -34,7 +34,7 @@ const FormTable = () => {
                     }}>Edit</button>
                     <button className='btn btn-danger' onClick={() => {
                       dispatch(BTFormActions.deleteStudent(student.id))
-                      myForm.reset()
+                      setInputValue({})
                     }}>Delete</button>
                   </div>
                 </td>

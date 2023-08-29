@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import qs from 'qs'
 import { } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { BTFormActions } from '../redux/slice'
 
-const FormInput = () => {
+const FormInput = ({ inputValue, setInputValue }) => {
   const dispatch = useDispatch()
-  const [inputValue, setInputValue] = useState()
   const [messErr, setMessErr] = useState()
-  const { studentList, editStudent } = useSelector(state => state.BTForm)
-  console.log(editStudent);
+  const { studentList, editStd } = useSelector(state => state.BTForm)
+  useEffect(() => {
+    if (editStd) {
+      setInputValue(editStd)
+    }
+  }, [editStd])
+
 
   const handleInputForm = () => (event) => {
     const { name, value, validity, title, minLength } = event.target
@@ -50,7 +54,7 @@ const FormInput = () => {
       <form noValidate onSubmit={(event) => {
         event.preventDefault()
         const inputElement = document.querySelectorAll('input')
-
+        const myForm = document.querySelector('form')
         let errors = {}
         inputElement.forEach(ele => {
           const { name, value, validity, title, minLength } = ele
@@ -74,7 +78,14 @@ const FormInput = () => {
           }
         }
         if (isFlag) return
-        dispatch(BTFormActions.addStudent(inputValue))
+        if (!editStd) {
+          dispatch(BTFormActions.addStudent(inputValue))
+          setInputValue({})
+        } else {
+          dispatch(BTFormActions.saveStudent(inputValue))
+          setInputValue({})
+        }
+
       }}>
         <div className="row">
           <div className="col-6 mt-3">
@@ -82,8 +93,8 @@ const FormInput = () => {
             <input type="text"
               name='id'
               title='mã sinh viên'
+              value={inputValue?.id || ''}
               required
-              value={editStudent?.id || ''}
               minLength={3}
               placeholder='Nhập mã sinh viên'
               className='form-control'
@@ -95,8 +106,8 @@ const FormInput = () => {
             <input type="text"
               name='name'
               title='họ và tên'
+              value={inputValue?.name || ''}
               required
-              value={editStudent?.name}
               minLength={2}
               pattern='^[\p{L} ]+$'
               placeholder='Nhập họ và tên'
@@ -110,7 +121,7 @@ const FormInput = () => {
               type="text"
               name='phone'
               title='số điện thoại'
-              value={editStudent?.phone}
+              value={inputValue?.phone || ''}
               minLength={10}
               required
               pattern='(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b'
@@ -125,10 +136,10 @@ const FormInput = () => {
               type="text"
               name='email'
               title='email'
-              value={editStudent?.email}
+              value={inputValue?.email || ''}
               required
               minLength={5}
-              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              pattern='[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$'
               placeholder='Nhập email'
               className='form-control'
               onChange={handleInputForm()} />
@@ -136,12 +147,17 @@ const FormInput = () => {
 
           </div>
         </div>
-        <div className="d-flex gap-5 justify-content-between">
-          <button className="btn btn-success mt-2" type='submit'>Thêm sinh viên</button>
-          <button className="btn btn-success mt-2" type='submit'>Lưu</button>
+        <div className="text-center mt-3">
+          {
+            editStd ?
+              (<button className="btn btn-success mt-2" type='submit' >Lưu</button>)
+              : (
+                <button className="btn btn-success mt-2" type='submit'>Thêm sinh viên</button>
+              )
+          }
         </div>
       </form>
-    </div>
+    </div >
   )
 }
 
