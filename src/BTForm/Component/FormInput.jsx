@@ -48,7 +48,7 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
     };
 
     return (
-        <div className="container">
+        <div className="container border p-2">
             <div className="mt-2 py-2 px-2 text-white bg-dark d-flex justify-content-between">
                 <h2>Thông tin sinh viên</h2>
                 <button
@@ -88,7 +88,6 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
                     let isFlag = false;
                     for (let key in errors) {
                         if (errors[key]) {
-                            console.log(errors[key]);
                             isFlag = true;
                             break;
                         }
