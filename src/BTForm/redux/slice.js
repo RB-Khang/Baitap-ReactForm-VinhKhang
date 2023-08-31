@@ -23,8 +23,10 @@ const BTFormSlice = createSlice({
                     return action.payload
                 }
             })
+        },
+        resetForm: (state, action) => {
+            state.editStd = undefined
         }
-
 
     },
 

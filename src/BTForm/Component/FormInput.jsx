@@ -8,6 +8,8 @@ const FormInput = ({ inputValue, setInputValue }) => {
   const dispatch = useDispatch()
   const [messErr, setMessErr] = useState()
   const { studentList, editStd } = useSelector(state => state.BTForm)
+  // console.log(inputValue);
+
   useEffect(() => {
     if (editStd) {
       setInputValue(editStd)
@@ -19,8 +21,8 @@ const FormInput = ({ inputValue, setInputValue }) => {
     const { name, value, validity, title, minLength } = event.target
     let mess = ''
     const validate = () => {
-      const { tooShort, valueMissing, patternMismatch } = validity
-      if (valueMissing) {
+      const { tooShort, patternMismatch } = validity
+      if (value.replace(/\s/g, '').length === 0) {
         mess = `Vui lòng nhập ${title}`
       } else if (tooShort) {
         mess = `Vui lòng nhập ${title} ít nhất ${minLength} ký tự`
@@ -28,7 +30,7 @@ const FormInput = ({ inputValue, setInputValue }) => {
         mess = `Vui lòng nhập ${title} đúng định dạng`
       } else if (name === 'id') {
         for (let key in studentList) {
-          if (studentList[key].id === value) {
+          if (studentList[key].id * 1 === value * 1) {
             mess = `${title} bị trùng`
           }
         }
@@ -50,7 +52,16 @@ const FormInput = ({ inputValue, setInputValue }) => {
 
   return (
     <div className='container'>
-      <h2 className="mt-2 py-2 px-2 text-white bg-dark">Thông tin sinh viên</h2>
+      <div className="mt-2 py-2 px-2 text-white bg-dark d-flex justify-content-between">
+        <h2>
+          Thông tin sinh viên
+        </h2>
+        <button className="btn btn-success" type='button' onClick={() => {
+          setInputValue({})
+          document.getElementById('maSV').disabled = false
+          dispatch(BTFormActions.resetForm())
+        }}>Thêm sinh viên</button>
+      </div>
       <form noValidate onSubmit={(event) => {
         event.preventDefault()
         const inputElement = document.querySelectorAll('input')
@@ -85,12 +96,13 @@ const FormInput = ({ inputValue, setInputValue }) => {
           dispatch(BTFormActions.saveStudent(inputValue))
           setInputValue({})
         }
-
       }}>
+
         <div className="row">
           <div className="col-6 mt-3">
             <p>Mã SV</p>
             <input type="text"
+              id='maSV'
               name='id'
               title='mã sinh viên'
               value={inputValue?.id || ''}
@@ -147,12 +159,12 @@ const FormInput = ({ inputValue, setInputValue }) => {
 
           </div>
         </div>
-        <div className="text-center mt-3">
+        <div className="text-center">
           {
             editStd ?
-              (<button className="btn btn-success mt-2" type='submit' >Lưu</button>)
+              (<button className="btn btn-outline-success mt-2" type='submit'>Lưu</button>)
               : (
-                <button className="btn btn-success mt-2" type='submit'>Thêm sinh viên</button>
+                <button className="btn btn-outline-success mt-2" type='submit'>Thêm</button>
               )
           }
         </div>
