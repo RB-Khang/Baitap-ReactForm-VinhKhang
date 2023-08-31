@@ -34,7 +34,7 @@ const FormTable = (pros) => {
             );
             if (search.length === 0) {
               setSearchList([]);
-            }
+            } else { setSearchList(search) }
           }}
         />
       </div>
@@ -49,7 +49,7 @@ const FormTable = (pros) => {
           </tr>
         </thead>
         <tbody>
-          {(searchList ? searchList : studentList)?.map((student) => {
+          {(searchList ? searchList : studentList).map((student) => {
             return (
               <tr key={student.id}>
                 <td>{student.id}</td>
