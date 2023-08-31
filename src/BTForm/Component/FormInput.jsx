@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import qs from "qs";
-import {} from "react-router-dom";
+import { } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BTFormActions } from "../redux/slice";
 
-const FormInput = ({ inputValue, setInputValue }) => {
+const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
     const dispatch = useDispatch();
-    const [messErr, setMessErr] = useState();
     const { studentList, editStd } = useSelector((state) => state.BTForm);
     // console.log(studentList);
+    // console.log(editStd);
     useEffect(() => {
         if (editStd) {
             setInputValue(editStd);
@@ -56,7 +56,7 @@ const FormInput = ({ inputValue, setInputValue }) => {
                     type="button"
                     onClick={() => {
                         setInputValue({});
-                        document.getElementById("maSV").disabled = false;
+                        document.getElementById("maSV").readOnly = false;
                         dispatch(BTFormActions.resetForm());
                     }}
                 >
@@ -96,10 +96,13 @@ const FormInput = ({ inputValue, setInputValue }) => {
                     if (!isFlag) {
                         if (!editStd) {
                             dispatch(BTFormActions.addStudent(inputValue));
-                            setInputValue({});
                             setMessErr({});
+                            setInputValue({});
                         } else {
                             dispatch(BTFormActions.saveStudent(inputValue));
+                            dispatch(BTFormActions.resetForm())
+                            document.getElementById('maSV').readOnly = false
+                            setMessErr({});
                             setInputValue({});
                         }
                     }

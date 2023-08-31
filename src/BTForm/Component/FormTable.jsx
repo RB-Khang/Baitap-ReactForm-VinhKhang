@@ -3,17 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { BTFormActions } from "../redux/slice";
 
 const FormTable = (pros) => {
-  const { input, setInputValue, searchList, setSearchList } = pros;
+  const { inputValue, setInputValue, searchList, setSearchList, setMessErr, messErr } = pros;
   const dispatch = useDispatch();
   const { studentList } = useSelector((state) => state.BTForm);
-  // console.log(studentList);
+
   useEffect(() => {
     const valueSearch = document.getElementById("searchInput").value;
     const nameSearch = valueSearch.replace(/\s/g, "").toUpperCase();
-    let search = studentList.filter(
-      (student) =>
-        student.name.replace(/\s/g, "").toUpperCase().indexOf(nameSearch) !== -1
-    );
+    let search = studentList.filter((student) => student.name.replace(/\s/g, "").toUpperCase().indexOf(nameSearch) !== -1);
     setSearchList(search)
   }, [studentList]);
   return (
@@ -62,8 +59,9 @@ const FormTable = (pros) => {
                       className="btn btn-outline-success"
                       onClick={() => {
                         dispatch(BTFormActions.editStudent(student));
+                        setMessErr({});
                         let maSV = document.getElementById("maSV");
-                        maSV.disabled = true;
+                        maSV.readOnly = true;
                       }}
                     >
                       Edit
