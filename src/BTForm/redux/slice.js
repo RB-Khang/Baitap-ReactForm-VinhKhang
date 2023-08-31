@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     studentList: [],
     editStd: undefined,
-    // editedStd: undefined
 }
 const BTFormSlice = createSlice({
     name: 'BTForm',
