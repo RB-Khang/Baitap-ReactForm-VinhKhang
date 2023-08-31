@@ -7,6 +7,14 @@ const FormTable = (pros) => {
   const dispatch = useDispatch();
   const { studentList } = useSelector((state) => state.BTForm);
 
+  const vietHoa = (string) => {
+    const str = string.toLowerCase().split(' ')
+    const arr = str.map(word => {
+      return word.replace(word.charAt(0), word.charAt(0).toUpperCase())
+    })
+    return arr.join(' ')
+  }
+
   useEffect(() => {
     const valueSearch = document.getElementById("searchInput").value;
     const nameSearch = valueSearch.replace(/\s/g, "").toUpperCase();
@@ -14,7 +22,7 @@ const FormTable = (pros) => {
     setSearchList(search)
   }, [studentList]);
   return (
-    <div className="container mt-3 ">
+    <div className="container mt-3 border p-2 ">
       <div>
         <h4 className="bg-dark text-white text-center p-2">
           Tìm kiếm sinh viên
@@ -49,8 +57,8 @@ const FormTable = (pros) => {
           {(searchList ? searchList : studentList).map((student) => {
             return (
               <tr key={student.id}>
-                <td>{student.id}</td>
-                <td>{student.name}</td>
+                <td className="fw-bold">{student.id}</td>
+                <td>{vietHoa(student.name)}</td>
                 <td>{student.phone}</td>
                 <td>{student.email}</td>
                 <td>
