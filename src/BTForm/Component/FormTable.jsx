@@ -23,15 +23,15 @@ const FormTable = (pros) => {
   }, [studentList]);
   return (
     <div className="container mt-3 border p-2 ">
-      <div>
-        <h4 className="bg-dark text-white text-center p-2">
-          Tìm kiếm sinh viên
-        </h4>
+      <div className="d-flex justify-content-center">
         <input
-          className="form-control mb-2"
+          className="form-control mb-2 border-danger"
+          style={{
+            width:500,
+          }}
           id="searchInput"
           type="text"
-          placeholder="Nhập tên sinh viên"
+          placeholder="Nhập tên để tìm sinh viên"
           onChange={(event) => {
             const { value } = event.target;
             const nameSearch = value.replace(/\s/g, "").toUpperCase();
@@ -43,9 +43,9 @@ const FormTable = (pros) => {
           }}
         />
       </div>
-      <table className="table">
+      <table className="table border">
         <thead>
-          <tr className="table-dark">
+          <tr className="table-primary">
             <th>Mã SV</th>
             <th>Họ và tên</th>
             <th>Số điện thoại</th>

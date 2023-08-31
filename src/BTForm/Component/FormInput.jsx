@@ -7,8 +7,6 @@ import { BTFormActions } from "../redux/slice";
 const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
     const dispatch = useDispatch();
     const { studentList, editStd } = useSelector((state) => state.BTForm);
-    // console.log(studentList);
-    // console.log(editStd);
     useEffect(() => {
         if (editStd) {
             setInputValue(editStd);
@@ -49,7 +47,7 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
 
     return (
         <div className="container border p-2">
-            <div className="mt-2 py-2 px-2 text-white bg-dark d-flex justify-content-between">
+            <div className="mt-2 py-1 px-2 text-white bg-dark d-flex justify-content-between">
                 <h2>Thông tin sinh viên</h2>
                 <button
                     className="btn btn-success"
@@ -108,8 +106,8 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
                 }}
             >
                 <div className="row">
-                    <div className="col-6 mt-3">
-                        <p>Mã SV</p>
+                    <div className="col-6 mt-2">
+                        <p className="ps-3">Mã SV</p>
                         <input
                             type="text"
                             id="maSV"
@@ -126,8 +124,8 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
                             <p className="text-danger">* {messErr.id}</p>
                         )}
                     </div>
-                    <div className="col-6 mt-3">
-                        <p>Họ và tên</p>
+                    <div className="col-6 mt-2">
+                        <p className="ps-3">Họ và tên</p>
                         <input
                             type="text"
                             name="name"
@@ -144,8 +142,8 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
                             <p className="text-danger">* {messErr.name}</p>
                         )}
                     </div>
-                    <div className="col-6 mt-3">
-                        <p>Số điện thoại</p>
+                    <div className="col-6 mt-2">
+                        <p className="ps-3">Số điện thoại</p>
                         <input
                             type="text"
                             name="phone"
@@ -162,8 +160,8 @@ const FormInput = ({ inputValue, setInputValue,messErr,setMessErr }) => {
                             <p className="text-danger">* {messErr.phone}</p>
                         )}
                     </div>
-                    <div className="col-6 mt-3">
-                        <p>Email</p>
+                    <div className="col-6 mt-2">
+                        <p className="ps-3">Email</p>
                         <input
                             type="text"
                             name="email"
