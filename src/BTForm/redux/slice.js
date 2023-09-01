@@ -23,6 +23,11 @@ const BTFormSlice = createSlice({
         (student) => student.id === action.payload.id
       );
       state.studentList.splice(index, 1, action.payload);
+      // state.studentList = state.studentList.map(student=>{
+      //   if(student.id===action.payload.id){
+      //     return action.payload
+      // }
+      // return student})
     },
     resetForm: (state, action) => {
       state.editStd = undefined;

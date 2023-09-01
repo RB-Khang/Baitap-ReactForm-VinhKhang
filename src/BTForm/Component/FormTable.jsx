@@ -25,7 +25,7 @@ const FormTable = (pros) => {
     <div className="container mt-3 border p-2 ">
       <div className="d-flex justify-content-center">
         <input
-          className="form-control mb-2 border-danger"
+          className="form-control mb-2 border-info"
           style={{
             width:500,
           }}
