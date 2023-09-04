@@ -25,6 +25,7 @@ const FormTable = (pros) => {
   }, [studentList]);
   return (
     <div className="container mt-3 border p-2 ">
+      <h3 className="text-center bg-dark text-white p-2">Tìm kiếm sinh viên</h3>
       <div className="d-flex justify-content-center">
         <input
           className="form-control mb-2 border-info"
