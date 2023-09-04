@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BTFormActions } from "../redux/slice";
+import axios from 'axios'
 
 const FormTable = (pros) => {
   const { inputValue, setInputValue, searchList, setSearchList, setMessErr, messErr } = pros;
@@ -15,11 +16,23 @@ const FormTable = (pros) => {
     return arr.join(' ')
   }
 
+  const getData = async () => {
+    const data = await axios({
+      method: 'GET',
+      url: 'https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01',
+      header: {
+        TokenCybersoft: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA0NyIsIkhldEhhblN0cmluZyI6IjAxLzAyLzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcwNjc0NTYwMDAwMCIsIm5iZiI6MTY3ODk4NjAwMCwiZXhwIjoxNzA2ODkzMjAwfQ.-axBsmkeW5i-ufzRXjqOhPEUumPXCQLTot5UjBRmtdQ'
+      }
+    })
+    console.log({data});
+  }
+
   useEffect(() => {
     const valueSearch = document.getElementById("searchInput").value;
     const nameSearch = valueSearch.replace(/\s/g, "").toUpperCase();
     let search = studentList.filter((student) => student.name.replace(/\s/g, "").toUpperCase().indexOf(nameSearch) !== -1);
     setSearchList(search)
+    getData()
   }, [studentList]);
   return (
     <div className="container mt-3 border p-2 ">
@@ -27,7 +40,7 @@ const FormTable = (pros) => {
         <input
           className="form-control mb-2 border-info"
           style={{
-            width:500,
+            width: 500,
           }}
           id="searchInput"
           type="text"
